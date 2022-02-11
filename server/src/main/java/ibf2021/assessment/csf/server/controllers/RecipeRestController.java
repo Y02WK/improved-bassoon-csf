@@ -3,6 +3,7 @@ package ibf2021.assessment.csf.server.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,8 +52,10 @@ public class RecipeRestController {
     @PostMapping(value = "/api/recipe", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveRecipe(@RequestBody Recipe recipe) {
 
-        System.out.println(recipe.toString());
         recipeService.addRecipe(recipe);
-        return ResponseEntity.ok("".toString());
+
+        JsonObject respObj = Json.createObjectBuilder()
+                .add("status", "success").build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(respObj.toString());
     }
 }

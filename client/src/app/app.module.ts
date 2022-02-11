@@ -14,6 +14,8 @@ import { RecipeAddComponent } from './components/recipe-add/recipe-add.component
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 import { RecipeService } from './recipe.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const appRoutes: Routes = [
   { path: '', component: RecipeListComponent },
@@ -40,6 +42,12 @@ const appRoutes: Routes = [
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent],
