@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-add',
@@ -14,7 +15,7 @@ import {
 })
 export class RecipeAddComponent implements OnInit {
   form!: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -33,11 +34,24 @@ export class RecipeAddComponent implements OnInit {
   }
 
   addInput() {
-    const control = new FormControl('');
+    const control = new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]);
     (<FormArray>this.form.get('ingredients')).push(control);
+  }
+
+  deleteInput(i: number) {
+    (<FormArray>this.form.get('ingredients')).removeAt(i);
   }
 
   getFormArray(): FormArray {
     return this.form.get('ingredients') as FormArray;
   }
+
+  goBack(): void {
+    this.router.navigate(['/']);
+  }
+
+  submitForm(): void {}
 }

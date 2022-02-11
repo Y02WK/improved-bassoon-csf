@@ -10,12 +10,11 @@
     <!-- Input for ingredients -->
     <mat-card-title
       >Ingredients
-      <span>
-        <button type="button" mat-mini-fab color="accent" (click)="addInput()">
-          <mat-icon>add</mat-icon>
-        </button></span
-      ></mat-card-title
-    >
+
+      <button type="button" mat-icon-button color="accent" (click)="addInput()">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </mat-card-title>
     <ng-container formArrayName="ingredients">
       <ng-container
         *ngFor="let control of getFormArray().controls; let i = index"
@@ -29,6 +28,7 @@
             matSuffix
             mat-icon-button
             color="warn"
+            (click)="deleteInput(i)"
           >
             <mat-icon>remove_circle</mat-icon>
           </button>
@@ -56,8 +56,19 @@
     </mat-form-field>
     <div>
       <span>
-        <button type="button" mat-flat-button color="warn">Back</button>
-        <button type="button" mat-flat-button color="primary">Add</button>
+        <button type="button" mat-flat-button color="warn" (click)="goBack()">
+          Back
+        </button>
+
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="submitForm()"
+        >
+          Add
+        </button>
       </span>
     </div>
   </form>
