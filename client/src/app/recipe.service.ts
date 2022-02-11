@@ -11,6 +11,7 @@ export class RecipeService {
 
   // Gets all recipes from the server as array containing all RecipeSummary
   getAllRecipes(): Promise<any> {
+    // TODO: Add headers to accept application/json
     return lastValueFrom(this.http.get(this.allRecipesURL));
   }
 }
