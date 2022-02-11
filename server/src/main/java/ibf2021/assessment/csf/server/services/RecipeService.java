@@ -71,7 +71,6 @@ public class RecipeService {
 		writeLock(() -> {
 			recipes.add(recipe);
 			recipesById.put(recipe.getId(), recipe);
-			System.out.println(">>>>>" + recipesById.get(recipe.getId()));
 		});
 	}
 

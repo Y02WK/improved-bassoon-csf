@@ -28,7 +28,6 @@ public class RecipeRestController {
     @GetMapping(value = "/api/recipe/{recipeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getRecipeById(@PathVariable String recipeId) {
 
-        System.out.println("!!!!!!" + recipeId);
         Optional<Recipe> recipeBox = recipeService.getRecipeById(recipeId);
         Recipe recipe;
         if (recipeBox.isPresent()) {
@@ -51,8 +50,9 @@ public class RecipeRestController {
     @CrossOrigin
     @PostMapping(value = "/api/recipe", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveRecipe(@RequestBody Recipe recipe) {
+
         System.out.println(recipe.toString());
         recipeService.addRecipe(recipe);
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok("".toString());
     }
 }

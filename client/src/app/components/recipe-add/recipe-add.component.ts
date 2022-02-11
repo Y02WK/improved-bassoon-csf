@@ -17,6 +17,7 @@ import { RecipeService } from 'src/app/recipe.service';
 })
 export class RecipeAddComponent implements OnInit {
   form!: FormGroup;
+  listOfIngredients: string[] = [];
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -31,6 +32,10 @@ export class RecipeAddComponent implements OnInit {
       ]),
       ingredients: this.fb.array([
         new FormControl('', [Validators.required, Validators.minLength(3)]),
+      ]),
+      instruction: this.fb.control('', [
+        Validators.required,
+        Validators.minLength(3),
       ]),
       image: this.fb.control('', [
         Validators.required,
@@ -60,12 +65,8 @@ export class RecipeAddComponent implements OnInit {
   }
 
   submitForm(): void {
-    let recipe: Recipe = {
-      title: this.form.value['title'],
-      ingredients: this.form.value['ingredients'],
-      instruction: this.form.value['instruction'],
-      image: this.form.value['image'],
-    };
+    const recipe = this.form.value as Recipe;
+
     this.recipeService.saveRecipe(recipe).then(() => {
       this.router.navigate(['/']);
       alert('Recipe saved!');

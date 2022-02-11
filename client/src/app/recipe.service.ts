@@ -35,7 +35,7 @@ export class RecipeService {
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json');
     return lastValueFrom(
-      this.http.post(`${this.recipeByIdURL}`, JSON.stringify(recipe), {
+      this.http.post(`${this.recipeByIdURL}`, recipe, {
         headers: httpHeaders,
       })
     );
