@@ -1,4 +1,32 @@
-<p>recipe-add works!</p>
-<form>
-  <mat-card> </mat-card>
-</form>
+<mat-card>
+  <form [formGroup]="form">
+    <mat-card-title>Title</mat-card-title>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter title here</mat-label>
+      <input
+        matInput
+        placeholder="Chicken Pie"
+        formControlName="title"
+        required
+      />
+    </mat-form-field>
+
+    <mat-card-title
+      >Ingredients
+      <span>
+        <button type="button" mat-mini-fab color="accent" (click)="addInput()">
+          <mat-icon>add</mat-icon>
+        </button></span
+      ></mat-card-title
+    >
+    <ng-container>
+      <mat-form-field
+        appearance="fill"
+        *ngFor="let control of getFormArray().controls; let i = index"
+      >
+        <mat-label>Enter ingredient here</mat-label>
+        <input matInput [formControlName]="i" />
+      </mat-form-field>
+    </ng-container>
+  </form>
+</mat-card>
