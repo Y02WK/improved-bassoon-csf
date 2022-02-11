@@ -1,7 +1,7 @@
 <div>
   <mat-card
     *ngFor="let recipe of recipeList"
-    (click)="navigateToRecipe(recipe.id)"
+    (click)="navigateToRecipe(recipe.id!)"
   >
     {{ recipe.title }}
   </mat-card>
