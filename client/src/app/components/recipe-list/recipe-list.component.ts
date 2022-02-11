@@ -9,17 +9,23 @@ import { RecipeService } from 'src/app/recipe.service';
   styleUrls: ['./recipe-list.component.css'],
 })
 export class RecipeListComponent implements OnInit {
-  recipeList: RecipeSummary[] = [
-    { id: '1', name: 'Bread' },
-    { id: '2', name: 'Roast Beef' },
-  ];
+  recipeList: RecipeSummary[] = [];
   constructor(private router: Router, private recipeService: RecipeService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getRecipes();
+  }
 
   navigateToRecipe(recipeId: string) {
     this.router.navigate(['/recipe', recipeId]);
   }
 
-  getRecipes() {}
+  private getRecipes() {
+    this.recipeService.getAllRecipes().then((recipeList) => {
+      this.recipeList = recipeList.map(
+        (recipe: { id: any; title: any }) =>
+          ({ id: recipe.id, title: recipe.title } as RecipeSummary)
+      );
+    });
+  }
 }

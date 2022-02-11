@@ -1,4 +1,3 @@
-import { RecipeSummary } from './models';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
@@ -7,7 +6,7 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class RecipeService {
-  allRecipesURL = '';
+  allRecipesURL = 'http://localhost:8080/api/recipes';
   constructor(private http: HttpClient) {}
 
   // Gets all recipes from the server as array containing all RecipeSummary

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ public class RecipesRestController {
     @Autowired
     private RecipeService recipeService;
 
+    @CrossOrigin
     @GetMapping(path = "/api/recipes", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getAllRecipes() {
         List<Recipe> recipeList = recipeService.getAllRecipes();
@@ -28,7 +30,7 @@ public class RecipesRestController {
         recipeList.stream().forEach(recipe -> arrayBuilder.add(
                 Json.createObjectBuilder()
                         .add("id", recipe.getId())
-                        .add("name", recipe.getTitle())));
+                        .add("title", recipe.getTitle())));
 
         JsonArray respArray = arrayBuilder.build();
         System.out.println(respArray.toString());
