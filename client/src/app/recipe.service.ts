@@ -7,8 +7,8 @@ import { Recipe } from './models';
   providedIn: 'root',
 })
 export class RecipeService {
-  allRecipesURL = 'http://localhost:8080/api/recipes';
-  recipeByIdURL = 'http://localhost:8080/api/recipe';
+  allRecipesURL = '/api/recipes';
+  recipeByIdURL = '/api/recipe';
   constructor(private http: HttpClient) {}
 
   // Gets all recipes from the server as array containing all RecipeSummary
