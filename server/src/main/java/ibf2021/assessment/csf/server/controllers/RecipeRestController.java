@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ibf2021.assessment.csf.server.models.Recipe;
@@ -25,6 +27,8 @@ public class RecipeRestController {
     @CrossOrigin
     @GetMapping(value = "/api/recipe/{recipeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getRecipeById(@PathVariable String recipeId) {
+
+        System.out.println("!!!!!!" + recipeId);
         Optional<Recipe> recipeBox = recipeService.getRecipeById(recipeId);
         Recipe recipe;
         if (recipeBox.isPresent()) {
@@ -42,5 +46,13 @@ public class RecipeRestController {
                 .build();
 
         return ResponseEntity.ok(respObj.toString());
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/api/recipe", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> saveRecipe(@RequestBody Recipe recipe) {
+        System.out.println(recipe.toString());
+        recipeService.addRecipe(recipe);
+        return ResponseEntity.ok("");
     }
 }

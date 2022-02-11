@@ -1,9 +1,10 @@
 package ibf2021.assessment.csf.server.services;
 
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
@@ -18,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 
 import ibf2021.assessment.csf.server.ServerApplication;
 import ibf2021.assessment.csf.server.models.Recipe;
@@ -44,7 +43,8 @@ public class RecipeService {
 	@Autowired
 	ResourceLoader resourceLoader;
 
-	public RecipeService() { }
+	public RecipeService() {
+	}
 
 	@PostConstruct
 	public void init() {
@@ -71,6 +71,7 @@ public class RecipeService {
 		writeLock(() -> {
 			recipes.add(recipe);
 			recipesById.put(recipe.getId(), recipe);
+			System.out.println(">>>>>" + recipesById.get(recipe.getId()));
 		});
 	}
 
@@ -79,8 +80,9 @@ public class RecipeService {
 		l.lock();
 		try {
 			return s.get();
-		} finally { 
-			l.unlock(); }
+		} finally {
+			l.unlock();
+		}
 	}
 
 	private void writeLock(Runnable r) {
@@ -88,6 +90,8 @@ public class RecipeService {
 		l.lock();
 		try {
 			r.run();
-		} finally { l.unlock(); }
+		} finally {
+			l.unlock();
+		}
 	}
 }
