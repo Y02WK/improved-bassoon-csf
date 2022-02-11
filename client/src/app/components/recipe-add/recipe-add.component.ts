@@ -25,6 +25,10 @@ export class RecipeAddComponent implements OnInit {
       ingredients: this.fb.array([
         new FormControl('', [Validators.required, Validators.minLength(3)]),
       ]),
+      image: this.fb.control('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
     });
   }
 

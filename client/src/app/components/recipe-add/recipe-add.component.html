@@ -1,16 +1,13 @@
 <mat-card>
   <form [formGroup]="form">
+    <!-- Input for title -->
     <mat-card-title>Title</mat-card-title>
     <mat-form-field appearance="fill">
       <mat-label>Enter title here</mat-label>
-      <input
-        matInput
-        placeholder="Chicken Pie"
-        formControlName="title"
-        required
-      />
+      <input matInput placeholder="Chicken Pie" formControlName="title" />
     </mat-form-field>
 
+    <!-- Input for ingredients -->
     <mat-card-title
       >Ingredients
       <span>
@@ -19,14 +16,49 @@
         </button></span
       ></mat-card-title
     >
-    <ng-container>
-      <mat-form-field
-        appearance="fill"
+    <ng-container formArrayName="ingredients">
+      <ng-container
         *ngFor="let control of getFormArray().controls; let i = index"
       >
-        <mat-label>Enter ingredient here</mat-label>
-        <input matInput [formControlName]="i" />
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter ingredient here</mat-label>
+          <input matInput formControlName="{{ i }}" />
+          <button
+            *ngIf="i > 0"
+            type="button"
+            matSuffix
+            mat-icon-button
+            color="warn"
+          >
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </mat-form-field>
+      </ng-container>
     </ng-container>
+
+    <!-- Input for instructions -->
+    <mat-card-title>Instructions</mat-card-title>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter instructions here</mat-label>
+      <textarea matInput rows="10" cols="10"></textarea>
+    </mat-form-field>
+
+    <!-- Input for image -->
+    <mat-card-title>Image</mat-card-title>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter image url here</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="image"
+        placeholder="http://image-url-here.jpg"
+      />
+    </mat-form-field>
+    <div>
+      <span>
+        <button type="button" mat-flat-button color="warn">Back</button>
+        <button type="button" mat-flat-button color="primary">Add</button>
+      </span>
+    </div>
   </form>
 </mat-card>
