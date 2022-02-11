@@ -20,6 +20,10 @@ export class RecipeListComponent implements OnInit {
     this.router.navigate(['/recipe', recipeId]);
   }
 
+  navigateToAdd() {
+    this.router.navigate(['/add']);
+  }
+
   // TODO: Move to RecipeService
   private getRecipes() {
     this.recipeService.getAllRecipes().then((recipeList) => {

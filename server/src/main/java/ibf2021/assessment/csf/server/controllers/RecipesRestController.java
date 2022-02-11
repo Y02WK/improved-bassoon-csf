@@ -33,7 +33,7 @@ public class RecipesRestController {
                         .add("title", recipe.getTitle())));
 
         JsonArray respArray = arrayBuilder.build();
-        System.out.println(respArray.toString());
+        System.out.println(respArray);
 
         return ResponseEntity.ok(respArray.toString());
     }
